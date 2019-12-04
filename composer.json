@@ -1,0 +1,7 @@
+{
+    "require": {
+        "spiral/roadrunner": "^1.5",
+        "spiral/dumper": "^1.1",
+        "zendframework/zend-diactoros": "^2.2"
+    }
+}

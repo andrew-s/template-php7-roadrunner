@@ -1,0 +1,17 @@
+{
+    "name": "app/function-php",
+    "description": "Template for HTTP function in PHP 7.4",
+    "type": "project",
+    "config": {
+        "classmap-authoritative": true
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "require": {
+        "php": "^7.4",
+        "zendframework/zend-diactoros": "^2.2"
+    }
+}
