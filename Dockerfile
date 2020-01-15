@@ -37,12 +37,12 @@ COPY --chown=app index.php .rr.yaml composer.*  ./
 COPY --chown=app ./function ./function
 
 # install php roadrunner dependencies
-RUN [[ -f composer.lock || -f composer.json ]] && composer install --no-dev --prefer-dist --no-progress
+RUN [[ -f composer.lock || -f composer.json ]] && composer install --no-dev --prefer-dist --no-progress --no-suggest
 
 # install application dependencies
 WORKDIR /home/app/function
 USER app
-RUN [[ -f composer.lock || -f composer.json ]] && composer install --no-dev
+RUN [[ -f composer.lock || -f composer.json ]] && composer install --no-dev --prefer-dist --no-progress --no-suggest
 
 # Cleanup
 USER root
