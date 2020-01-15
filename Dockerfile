@@ -16,11 +16,12 @@ COPY --from=watchdog /fwatchdog /usr/bin/fwatchdog
 RUN chmod +x /usr/bin/fwatchdog
 
 # install and configure roadrunner
+ENV RR_RELEASE='1.5.3'
 RUN cd /tmp && \
-    wget https://github.com/spiral/roadrunner/releases/download/v1.5.1/roadrunner-1.5.1-linux-amd64.tar.gz && \
-    tar -xvf roadrunner-1.5.1-linux-amd64.tar.gz && \
+    wget https://github.com/spiral/roadrunner/releases/download/v${RR_RELEASE}/roadrunner-${RR_RELEASE}-linux-amd64.tar.gz && \
+    tar -xvf roadrunner-${RR_RELEASE}-linux-amd64.tar.gz && \
     ls -alh && \
-    mv roadrunner-1.5.1-linux-amd64/rr /usr/local/bin/ && \
+    mv roadrunner-${RR_RELEASE}-linux-amd64/rr /usr/local/bin/ && \
     chmod +x /usr/local/bin/rr && \
     rm -rf /tmp/roadrunner*
 
@@ -33,7 +34,7 @@ RUN addgroup -S app && adduser -S -g app app && \
 
 # add application
 WORKDIR /home/app
-COPY --chown=app index.php .rr.yaml composer.*  ./
+COPY --chown=app index.php ./config composer.*  ./
 COPY --chown=app ./function ./function
 
 # install php roadrunner dependencies
