@@ -1,5 +1,5 @@
 # build containers
-FROM openfaas/of-watchdog:0.7.2 as watchdog
+FROM openfaas/of-watchdog:0.7.6 as watchdog
 FROM composer:1.9 AS composer
 
 # continue with the official PHP image
@@ -37,11 +37,10 @@ COPY --chown=app index.php .rr.yaml composer.*  ./
 COPY --chown=app ./function ./function
 
 # install php roadrunner dependencies
-RUN [[ -f composer.lock || -f composer.json ]] && composer install --no-dev
+RUN [[ -f composer.lock || -f composer.json ]] && composer install --no-dev --prefer-dist --no-progress
 
 # install application dependencies
 WORKDIR /home/app/function
-RUN [[ -f php-extension.sh ]] && sh ./php-extension.sh
 USER app
 RUN [[ -f composer.lock || -f composer.json ]] && composer install --no-dev
 
@@ -55,7 +54,7 @@ RUN apk del git && \
 USER app
 WORKDIR /home/app
 
-ENV fprocess="rr --config=/home/app/.rr.yaml serve -v -d"
+ENV fprocess="rr --config=/home/app/config/roadrunner/.rr.yaml serve -v -d"
 ENV mode="http"
 ENV write_debug="true"
 ENV upstream_url="http://127.0.0.1:8090"

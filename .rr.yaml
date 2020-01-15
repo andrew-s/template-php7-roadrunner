@@ -1,3 +1,0 @@
-http:
-  address:         ":8090"
-  workers.command: "php index.php"

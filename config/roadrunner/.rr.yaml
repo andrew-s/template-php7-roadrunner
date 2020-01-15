@@ -1,0 +1,9 @@
+http:
+  address:         ":8090"
+  workers.command: "php index.php"
+  # worker pool configuration.
+  pool:
+    numWorkers: 4
+    maxJobs:  0
+    allocateTimeout: 60
+    destroyTimeout:  60
